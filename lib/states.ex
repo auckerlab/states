@@ -1,18 +1,16 @@
 defmodule States do
-  @moduledoc """
-  Documentation for `States`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
+  def start(_type, videos) do
+    import Supervisor.Spec, warn: false
 
-  ## Examples
+    children = [
+      # Define workers and child supervisors to be supervised
+      # worker(States.Server, [videos])
+      {States.Server, [videos], id: States.Server}
+    ]
 
-      iex> States.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: States.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end

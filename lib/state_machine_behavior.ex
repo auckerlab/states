@@ -1,4 +1,4 @@
-defmodule StateMachineBehavior do
+defmodule StateMachine.Behavior do
   def fire(context, event) do
     %{context | state: event[:to]}
     |> activate(event)
